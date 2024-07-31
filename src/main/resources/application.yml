@@ -5,7 +5,7 @@ spring:
     gateway:
       routes:
         - id: register_route
-          uri: http://localhost:8081  # URL of your microservice
+          uri: http://localhost:8081
           predicates:
             - Path=/register
 
@@ -28,14 +28,3 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka
 
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-#  endpoint:
-#    health:
-#      show-details: always
-#    gateway:
-#      enabled: true
