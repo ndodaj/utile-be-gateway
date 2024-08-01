@@ -8,6 +8,7 @@ class UtileBeGatewayApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// apply tests
 	}
 
 }

@@ -3,7 +3,6 @@ package al.utile.utile_be_gateway.controller;
 import al.utile.utile_be_gateway.feign.AuthenticationServerClient;
 import al.utile.utile_common.utile.AuthenticationRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,15 +15,15 @@ import org.springframework.web.client.RestClient;
 @RestController
 public class EurekaController {
 
-    @Autowired
-    private AuthenticationServerClient authenticationServerClient;
+    private final AuthenticationServerClient authenticationServerClient;
 
     private final DiscoveryClient discoveryClient;
     private final RestClient restClient;
 
-    public EurekaController(DiscoveryClient discoveryClient, RestClient.Builder restClientBuilder) {
+    public EurekaController(DiscoveryClient discoveryClient, RestClient.Builder restClientBuilder, AuthenticationServerClient authenticationServerClient) {
         this.discoveryClient = discoveryClient;
         restClient = restClientBuilder.build();
+        this.authenticationServerClient = authenticationServerClient;
     }
 
     @GetMapping("helloEureka")
