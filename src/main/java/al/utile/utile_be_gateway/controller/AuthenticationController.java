@@ -13,20 +13,19 @@ import org.springframework.web.client.RestClient;
 
 @Slf4j
 @RestController
-public class EurekaController {
+public class AuthenticationController {
 
     private final AuthenticationServerClient authenticationServerClient;
-
     private final DiscoveryClient discoveryClient;
     private final RestClient restClient;
 
-    public EurekaController(DiscoveryClient discoveryClient, RestClient.Builder restClientBuilder, AuthenticationServerClient authenticationServerClient) {
+    public AuthenticationController(DiscoveryClient discoveryClient, RestClient.Builder restClientBuilder, AuthenticationServerClient authenticationServerClient) {
         this.discoveryClient = discoveryClient;
         restClient = restClientBuilder.build();
         this.authenticationServerClient = authenticationServerClient;
     }
 
-    @GetMapping("helloEureka")
+    @GetMapping("testEureka")
     public String helloWorld() {
         log.info("services {}", discoveryClient.getServices().toString());
         ServiceInstance serviceInstance = discoveryClient.getInstances("utile-app").get(0);
@@ -36,7 +35,7 @@ public class EurekaController {
                 .body(String.class);
     }
 
-    @PostMapping
+    @PostMapping("/authenticate")
     public String authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         return authenticationServerClient.authenticate(authenticationRequest);
     }
