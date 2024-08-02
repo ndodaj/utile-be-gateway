@@ -45,48 +45,44 @@ public class RoleController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RoleDto> getRole(@PathVariable("id") String id) {
-        return ResponseEntity.ok(
-                restClient.get()
-                        .uri(utileURI())
-                        .retrieve()
-                        .body(new ParameterizedTypeReference<>() {
-                        })
-        );
+        RoleDto body = restClient.get()
+                .uri(utileURI() + "/" + id)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        return ResponseEntity.ok(body);
     }
 
     @PostMapping
     public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto role) {
-        return ResponseEntity.ok(
-                restClient.post()
-                        .uri(utileURI())
-                        .body(role)
-                        .retrieve()
-                        .body(new ParameterizedTypeReference<>() {
-                        })
-        );
+        RoleDto body = restClient.post()
+                .uri(utileURI())
+                .body(role)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        return ResponseEntity.ok(body);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<RoleDto> updateRole(@PathVariable("id") String id, @RequestBody RoleDto role) {
-        return ResponseEntity.ok(
-                restClient.put()
-                        .uri(utileURI() + "/" + id)
-                        .body(role)
-                        .retrieve()
-                        .body(new ParameterizedTypeReference<>() {
-                        })
-        );
+        RoleDto body = restClient.put()
+                .uri(utileURI() + "/" + id)
+                .body(role)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        return ResponseEntity.ok(body);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Boolean> deleteRole(@PathVariable("id") String id) {
-        return ResponseEntity.ok(
-                restClient.delete()
-                        .uri(utileURI() + "/" + id)
-                        .retrieve()
-                        .body(new ParameterizedTypeReference<>() {
-                        })
-        );
+        Boolean body = restClient.delete()
+                .uri(utileURI() + "/" + id)
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {
+                });
+        return ResponseEntity.ok(body);
     }
 
     private String utileURI() {
