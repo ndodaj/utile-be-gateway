@@ -2,9 +2,9 @@ package al.utile.utile_be_gateway.service;
 
 import al.utile.utile_be_gateway.feign.ProfessionalClient;
 import al.utile.utile_be_gateway.feign.UtileClient;
-import al.utile.utile_common.utile.AggregatedDataDto;
-import al.utile.utile_common.utile.ProfessionalDto;
-import al.utile.utile_common.utile.UserDto;
+import al.utile.utile_common.utile.dto.AggregatedDataDto;
+import al.utile.utile_common.utile.dto.ProfessionalDto;
+import al.utile.utile_common.utile.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
