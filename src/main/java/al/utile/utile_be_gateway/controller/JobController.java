@@ -1,7 +1,7 @@
 package al.utile.utile_be_gateway.controller;
 
 import al.utile.utile_be_gateway.service.ServiceProvider;
-import al.utile.utile_common.utile.dto.RoleDto;
+import al.utile.utile_common.utile.dto.JobDto;
 import al.utile.utile_common.utile.service.UtileServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,23 +19,22 @@ import org.springframework.web.client.RestClient;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/roles")
-@Tag(name = "Role Controller", description = "Role APIs")
-public class RoleController {
+@RequestMapping("api/jobs")
+@Tag(name = "Job Controller", description = "Job Management APIS")
+public class JobController {
 
     private final RestClient restClient;
 
-
     private final ServiceProvider serviceProvider;
 
-    public RoleController(RestClient.Builder restClientBuilder, ServiceProvider serviceProvider) {
+    public JobController(RestClient.Builder restClientBuilder, ServiceProvider serviceProvider) {
         restClient = restClientBuilder.build();
         this.serviceProvider = serviceProvider;
     }
 
     @GetMapping
-    ResponseEntity<List<RoleDto>> getRoles() {
-        List<RoleDto> body = restClient.get()
+    ResponseEntity<List<JobDto>> getJobs() {
+        List<JobDto> body = restClient.get()
                 .uri(utileURI())
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -44,8 +43,8 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDto> getRole(@PathVariable("id") String id) {
-        RoleDto body = restClient.get()
+    public ResponseEntity<JobDto> getJob(@PathVariable("id") String id) {
+        JobDto body = restClient.get()
                 .uri(utileURI() + "/" + id)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -54,10 +53,10 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto role) {
-        RoleDto body = restClient.post()
+    public ResponseEntity<JobDto> createJob(@RequestBody JobDto job) {
+        JobDto body = restClient.post()
                 .uri(utileURI())
-                .body(role)
+                .body(job)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 });
@@ -65,10 +64,10 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDto> updateRole(@PathVariable("id") String id, @RequestBody RoleDto role) {
-        RoleDto body = restClient.put()
+    public ResponseEntity<JobDto> updateJob(@PathVariable("id") String id, @RequestBody JobDto job) {
+        JobDto body = restClient.put()
                 .uri(utileURI() + "/" + id)
-                .body(role)
+                .body(job)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 });
@@ -76,7 +75,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteRole(@PathVariable("id") String id) {
+    public ResponseEntity<Boolean> deleteJob(@PathVariable("id") String id) {
         Boolean body = restClient.delete()
                 .uri(utileURI() + "/" + id)
                 .retrieve()
@@ -86,7 +85,6 @@ public class RoleController {
     }
 
     private String utileURI() {
-        return serviceProvider.serviceInstances.get(UtileServices.UTILE).getUri() + "/roles";
+        return serviceProvider.serviceInstances.get(UtileServices.UTILE).getUri() + "/jobs";
     }
-
 }

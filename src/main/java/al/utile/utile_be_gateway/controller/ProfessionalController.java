@@ -1,7 +1,7 @@
 package al.utile.utile_be_gateway.controller;
 
 import al.utile.utile_be_gateway.service.ServiceProvider;
-import al.utile.utile_common.utile.dto.RoleDto;
+import al.utile.utile_common.utile.dto.ProfessionalDto;
 import al.utile.utile_common.utile.service.UtileServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.core.ParameterizedTypeReference;
@@ -19,23 +19,22 @@ import org.springframework.web.client.RestClient;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/roles")
-@Tag(name = "Role Controller", description = "Role APIs")
-public class RoleController {
+@RequestMapping("api/professionals")
+@Tag(name = "Professional Controller", description = "Professional Management APIS")
+public class ProfessionalController {
 
     private final RestClient restClient;
 
-
     private final ServiceProvider serviceProvider;
 
-    public RoleController(RestClient.Builder restClientBuilder, ServiceProvider serviceProvider) {
+    public ProfessionalController(RestClient.Builder restClientBuilder, ServiceProvider serviceProvider) {
         restClient = restClientBuilder.build();
         this.serviceProvider = serviceProvider;
     }
 
     @GetMapping
-    ResponseEntity<List<RoleDto>> getRoles() {
-        List<RoleDto> body = restClient.get()
+    ResponseEntity<List<ProfessionalDto>> getProfessionals() {
+        List<ProfessionalDto> body = restClient.get()
                 .uri(utileURI())
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -44,8 +43,8 @@ public class RoleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDto> getRole(@PathVariable("id") String id) {
-        RoleDto body = restClient.get()
+    public ResponseEntity<ProfessionalDto> getProfessional(@PathVariable("id") String id) {
+        ProfessionalDto body = restClient.get()
                 .uri(utileURI() + "/" + id)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -54,10 +53,10 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<RoleDto> createRole(@RequestBody RoleDto role) {
-        RoleDto body = restClient.post()
+    public ResponseEntity<ProfessionalDto> createProfessional(@RequestBody ProfessionalDto professional) {
+        ProfessionalDto body = restClient.post()
                 .uri(utileURI())
-                .body(role)
+                .body(professional)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 });
@@ -65,10 +64,10 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleDto> updateRole(@PathVariable("id") String id, @RequestBody RoleDto role) {
-        RoleDto body = restClient.put()
+    public ResponseEntity<ProfessionalDto> updateProfessional(@PathVariable("id") String id, @RequestBody ProfessionalDto professional) {
+        ProfessionalDto body = restClient.put()
                 .uri(utileURI() + "/" + id)
-                .body(role)
+                .body(professional)
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
                 });
@@ -76,7 +75,7 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteRole(@PathVariable("id") String id) {
+    public ResponseEntity<Boolean> deleteProfessional(@PathVariable("id") String id) {
         Boolean body = restClient.delete()
                 .uri(utileURI() + "/" + id)
                 .retrieve()
@@ -86,7 +85,6 @@ public class RoleController {
     }
 
     private String utileURI() {
-        return serviceProvider.serviceInstances.get(UtileServices.UTILE).getUri() + "/roles";
+        return serviceProvider.serviceInstances.get(UtileServices.PROFESSIONAL).getUri() + "/professionals";
     }
-
 }
