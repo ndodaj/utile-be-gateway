@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class AggregatorService {
 
-    @Autowired
-    private UtileClient utileClient;
+    private final UtileClient utileClient;
 
-    @Autowired
-    private ProfessionalClient professionalClient;
+    private final ProfessionalClient professionalClient;
+
+    public AggregatorService(UtileClient utileClient, ProfessionalClient professionalClient) {
+        this.utileClient = utileClient;
+        this.professionalClient = professionalClient;
+    }
 
     public AggregatedDataDto getAggregatedData(Long userId, Long professionalId) {
         UserDto user = utileClient.getUser(userId);

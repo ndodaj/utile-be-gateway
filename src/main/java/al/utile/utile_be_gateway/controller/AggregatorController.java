@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AggregatorController {
 
-    @Autowired
-    private AggregatorService aggregatorService;
+    private final AggregatorService aggregatorService;
+
+    public AggregatorController(AggregatorService aggregatorService) {
+        this.aggregatorService = aggregatorService;
+    }
 
     @GetMapping("/aggregated-data")
     public AggregatedDataDto getAggregatedData(
